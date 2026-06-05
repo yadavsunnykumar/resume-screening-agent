@@ -20,15 +20,15 @@ app = FastAPI(
     version="1.0.0",
 )
 
-_settings = get_settings()
+# In main.py — replace both middleware calls with just this one:
+settings = get_settings()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=_settings.cors_origins,
+    allow_origins=settings.cors_origins,
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,
 )
-
 
 def get_supervisor(settings: Settings = Depends(get_settings)) -> Supervisor:
     return Supervisor(settings)
